@@ -20,11 +20,24 @@ function install_bin_rpcs3() {
     mkdir -p "$md_inst/bin"
     wget --content-disposition https://rpcs3.net/latest-appimage -O "$md_inst/bin/rpcs3.AppImage"
     chmod +x "$md_inst/bin/rpcs3.AppImage"
+
+    echo '#!/bin/bash
+if [ -f "${1}" ]
+then
+	GAME_ID=$(cat "${1}")
+	EBOOT="${HOME}/.config/rpcs3/dev_hdd0/game/${GAME_ID}/USRDIR/EBOOT.BIN"
+else
+	EBOOT="${1}/PS3_GAME/USRDIR/EBOOT.BIN"
+fi
+exec "'$md_inst'/bin/rpcs3.AppImage" --no-gui "${EBOOT}"
+' > "$md_inst/bin/rpcs3.sh"
+    chmod +x "$md_inst/bin/rpcs3.sh"
 }
 
 function configure_rpcs3() {
     mkRomDir "ps3"
     addEmulator 0 "$md_id" "ps3" "$md_inst/bin/rpcs3.AppImage %ROM%/PS3_GAME/USRDIR/EBOOT.BIN"
     addEmulator 1 "$md_id-nogui" "ps3" "$md_inst/bin/rpcs3.AppImage --no-gui %ROM%/PS3_GAME/USRDIR/EBOOT.BIN"
+    addEmulator 2 "$md_id-script" "ps3" "$md_inst/bin/rpcs3.sh %ROM%"
     addSystem "ps3"
 }

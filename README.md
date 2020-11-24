@@ -43,13 +43,9 @@ Browse and select the `.pkg` content to run.
 
 In order to create an entry for the PSN game, take note of the game **serial** (you can copy the game serial on RPCS3 UI, right clicking in the game and select "Copy info" > "Copy game serial").
 
-Then create a folder for your game  with a `.PS3` extension under `~/RetroPie/roms/ps3/` (remember to replace the **game name** by your actual game name):
+Then create a text file with a `.PS3` extension under `~/RetroPie/roms/ps3/` including the game serial (remember to replace the **game name** by your actual game name):
 
-    mkdir ~/RetroPie/roms/ps3/<replace-with-your-game-name>.PS3
-
-Create a shortcut from the PS3 internal storage to the `~/RetroPie/roms/ps3/` (remember to replace the **serial** and **game name** by your actual game values):
-
-    ln -sf  ~/.config/rpcs3/dev_hdd0/game/<serial> ~/RetroPie/roms/ps3/<replace-with-your-game-name>.PS3/PS3_GAME
+    echo <replace-with-the-game-serial> > ~/RetroPie/roms/ps3/<replace-with-your-game-name>.PS3
 
 ## Playing
 
